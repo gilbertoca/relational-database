@@ -9,7 +9,6 @@ fi
 
 # Do not change code above this line. Use the PSQL variable above to query your database.
 
-#Script to insert data from games.csv into worldcup database
 
 echo $($PSQL "truncate table games, teams;")
 
