@@ -9,8 +9,9 @@ fi
 
 # Do not change code above this line. Use the PSQL variable above to query your database.
 
-
 echo $($PSQL "truncate table games, teams;")
+echo $($PSQL "ALTER SEQUENCE teams_team_id_seq RESTART WITH 1;")
+echo $($PSQL "ALTER SEQUENCE games_game_id_seq RESTART WITH 1;")
 
 cat games.csv | while IFS="," read YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
 do 
