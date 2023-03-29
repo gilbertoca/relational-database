@@ -9,6 +9,7 @@ fi
 
 # Do not change code above this line. Use the PSQL variable above to query your database.
 
+
 echo $($PSQL "truncate table games, teams;")
 echo $($PSQL "ALTER SEQUENCE teams_team_id_seq RESTART WITH 1;")
 echo $($PSQL "ALTER SEQUENCE games_game_id_seq RESTART WITH 1;")
@@ -26,8 +27,6 @@ do
       if [[ $INSERT_WINNER_RESULT == "INSERT 0 1" ]]; then
       echo "Inserted into teams, $WINNER"
       fi
-      #get new team_id
-      WINNER_ID=$($PSQL "select team_id from teams where name = '$WINNER';")
     fi
   fi
   if [[ $OPPONENT != opponent ]]; then
@@ -40,13 +39,8 @@ do
       if [[ $INSERT_OPPONENT_RESULT == "INSERT 0 1" ]]; then
         echo "Inserted into teams, $OPPONENT"
       fi      
-      # get new team_id -- opponent
-      OPPONENT_ID=$($PSQL "select team_id from teams where name = '$OPPONENT';")
     fi
   fi  
-done
-cat games.csv | while IFS="," read YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
-do 
   if [[ $ROUND != round ]]; then  
     # get team_id --winner
     WINNER_ID=$($PSQL "select team_id from teams where name = '$WINNER';")
@@ -70,3 +64,5 @@ do
     fi              
   fi
 done
+
+
